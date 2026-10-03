@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GetFIT — Palestër & Trajnim Personal</title>
+<meta name="description" content="GetFIT: programe trajnimi, trajnerë të certifikuar dhe orare fleksibël. Bëhu anëtar sot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1B3FE4; --blue-d:#1230B8; --chalk:#F2F4F8; --ink:#101828; --mute:#5B6475;
+  --amber:#FFB020; --line:#D9DEE8; --white:#fff;
+  --display:'Barlow Condensed','Arial Narrow',Impact,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--chalk);line-height:1.6;font-size:17px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:800;line-height:.95;letter-spacing:-.01em}
+h2{font-size:clamp(2.4rem,5vw,3.8rem);margin-bottom:14px}
+h3{font-size:1.7rem;font-weight:700}
+section{padding:96px 0}
+.lead{color:var(--mute);max-width:56ch}
+.btn{display:inline-block;font-weight:600;padding:14px 28px;border-radius:6px;border:2px solid transparent;cursor:pointer;font:inherit;font-weight:600;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-amber{background:var(--amber);color:var(--ink)}
+.btn-amber:hover{background:#ffc04d}
+.btn-line{border-color:rgba(255,255,255,.5);color:#fff}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-d)}
+
+/* NAV */
+header{position:fixed;inset:0 0 auto 0;z-index:20;background:rgba(16,24,40,.92);backdrop-filter:blur(8px)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--display);font-style:italic;font-weight:800;font-size:1.9rem;color:#fff}
+.logo b{color:var(--amber)}
+nav ul{display:flex;gap:28px;list-style:none;align-items:center}
+nav a{color:#E6E9F0;font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--amber)}
+nav .btn{padding:9px 18px;color:var(--ink)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.8rem;cursor:pointer}
+
+/* HERO */
+.hero{background:var(--blue);color:#fff;padding:140px 0 0;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:end}
+.hero h1{font-size:clamp(4rem,11vw,9rem);color:#fff;margin-bottom:24px}
+.hero h1 span{display:block;color:var(--amber)}
+.hero p{max-width:46ch;font-size:1.15rem;color:#DDE4FF;margin-bottom:32px}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.calc{background:var(--white);color:var(--ink);border-radius:10px 10px 0 0;padding:28px;box-shadow:0 -4px 0 var(--amber)}
+.calc h3{margin-bottom:6px}
+.calc small{color:var(--mute);display:block;margin-bottom:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:.85rem;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:6px;font:inherit;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none}
+.calc .out{margin-top:16px;padding:14px;background:var(--chalk);border-radius:6px;font-weight:600;min-height:52px}
+
+/* STATS */
+.stats{background:var(--ink);color:#fff;padding:36px 0}
+.stats .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.stats div{font-family:var(--display);font-style:italic;font-weight:700;font-size:2.6rem;line-height:1}
+.stats span{display:block;font-family:var(--body);font-style:normal;font-weight:400;font-size:.95rem;color:#AEB6C6;margin-top:6px}
+
+/* PROGRAMS */
+.programs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border:1.5px solid var(--ink)}
+.prog{padding:36px 30px;background:var(--white);border-right:1.5px solid var(--ink)}
+.prog:last-child{border-right:0}
+.prog svg{width:44px;height:44px;margin-bottom:20px;stroke:var(--blue);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.prog p{color:var(--mute);margin-top:10px}
+.prog:hover{background:var(--blue);color:#fff}
+.prog:hover p{color:#DDE4FF}.prog:hover svg{stroke:var(--amber)}
+
+/* SCHEDULE */
+.sched{background:var(--white)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0}
+.tab{padding:9px 18px;border-radius:999px;border:1.5px solid var(--line);background:none;font:inherit;font-weight:600;cursor:pointer}
+.tab[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.classes{display:grid;gap:10px}
+.cls{display:grid;grid-template-columns:90px 1fr auto auto;gap:20px;align-items:center;padding:18px 22px;background:var(--chalk);border-radius:8px;border-left:5px solid var(--blue)}
+.cls time{font-family:var(--display);font-style:italic;font-weight:700;font-size:1.6rem}
+.cls strong{display:block}
+.cls span{color:var(--mute);font-size:.92rem}
+.cls .spots{font-size:.85rem;font-weight:600;color:var(--blue)}
+.empty{padding:24px;color:var(--mute)}
+
+/* TRAINERS */
+.trainers{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px}
+.tr .ph{aspect-ratio:3/4;border-radius:8px;display:flex;align-items:flex-end;padding:14px;font-family:var(--display);font-style:italic;font-weight:800;font-size:4.5rem;color:rgba(255,255,255,.9);line-height:.8}
+.tr:nth-child(1) .ph{background:var(--blue)}.tr:nth-child(2) .ph{background:var(--ink)}
+.tr:nth-child(3) .ph{background:#2B6CB0}.tr:nth-child(4) .ph{background:#C98300}
+.tr h3{font-size:1.4rem;margin-top:14px}.tr span{color:var(--mute);font-size:.92rem}
+
+/* PRICING */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;align-items:stretch}
+.plan{background:var(--white);border:1.5px solid var(--line);border-radius:10px;padding:34px 30px;display:flex;flex-direction:column}
+.plan.hot{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-12px)}
+.price{font-family:var(--display);font-style:italic;font-weight:800;font-size:3.8rem;line-height:1;margin:14px 0}
+.price small{font-family:var(--body);font-style:normal;font-weight:400;font-size:1rem;opacity:.7}
+.plan ul{list-style:none;margin:10px 0 28px;flex:1}
+.plan li{padding:9px 0;border-bottom:1px solid rgba(128,138,160,.3)}
+.plan li::before{content:"✓";margin-right:10px;font-weight:700;color:var(--amber)}
+.tag{align-self:flex-start;background:var(--amber);color:var(--ink);font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:4px}
+
+/* JOIN */
+.join{background:var(--ink);color:#fff}
+.join-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.join .lead{color:#AEB6C6}
+form.card{background:#fff;color:var(--ink);padding:32px;border-radius:10px}
+form .btn{width:100%;margin-top:20px}
+.msg{margin-top:14px;font-weight:600;min-height:24px}
+.msg.ok{color:#0A7A3E}.msg.err{color:#C0262D}
+.hint{background:rgba(255,176,32,.12);border:1px solid var(--amber);color:#FFE2A8;padding:14px 16px;border-radius:6px;font-size:.92rem;margin-top:28px}
+
+footer{background:#0B1220;color:#AEB6C6;padding:40px 0;font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+@media(max-width:900px){
+  .hero-grid,.join-grid{grid-template-columns:1fr}
+  .programs,.plans{grid-template-columns:1fr}
+  .prog{border-right:0;border-bottom:1.5px solid var(--ink)}.prog:last-child{border-bottom:0}
+  .trainers{grid-template-columns:1fr 1fr}
+  .plan.hot{transform:none}
+  .cls{grid-template-columns:70px 1fr;}
+  .cls .spots,.cls .btn{grid-column:2}
+  .burger{display:block}
+  nav ul{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--ink);padding:20px;gap:18px}
+  nav ul.open{display:flex}
+  section{padding:68px 0}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="GetFIT">Get<b>FIT</b></a>
+    <nav aria-label="Kryesore">
+      <button class="burger" aria-label="Hap menunë" aria-expanded="false" id="burger">☰</button>
+      <ul id="menu">
+        <li><a href="#programet">Programet</a></li>
+        <li><a href="#orari">Orari</a></li>
+        <li><a href="#trajneret">Trajnerët</a></li>
+        <li><a href="#cmimet">Çmimet</a></li>
+        <li><a href="#anetaresohu" class="btn btn-amber">Bëhu anëtar</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Bëhu <span>më i fortë.</span></h1>
+      <p>Programe të ndërtuara nga trajnerë të certifikuar, për çdo nivel. Fillo sot dhe shiko ndryshimin brenda 8 javëve.</p>
+      <div class="cta">
+        <a class="btn btn-amber" href="#anetaresohu">Provo një ditë falas</a>
+        <a class="btn btn-line" href="#orari">Shiko orarin</a>
+      </div>
+    </div>
+    <div class="calc" aria-labelledby="calc-t">
+      <h3 id="calc-t">Llogarit BMI-në tënde</h3>
+      <small>Një pikënisje e shpejtë për qëllimin tënd.</small>
+      <form id="bmi" novalidate>
+        <div class="row">
+          <div><label for="h">Gjatësia (cm)</label><input id="h" type="number" min="100" max="250" placeholder="175"></div>
+          <div><label for="w">Pesha (kg)</label><input id="w" type="number" min="30" max="300" placeholder="72"></div>
+        </div>
+        <button class="btn btn-blue" style="width:100%;margin-top:16px" type="submit">Llogarit</button>
+      </form>
+      <div class="out" id="bmiOut" aria-live="polite">Shkruaj gjatësinë dhe peshën.</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div>1.200+<span>anëtarë aktivë</span></div>
+    <div>12<span>trajnerë të certifikuar</span></div>
+    <div>40+<span>klasa në javë</span></div>
+    <div>06:00–23:00<span>çdo ditë</span></div>
+  </div>
+</div>
+
+<section id="programet">
+  <div class="wrap">
+    <h2>Zgjidh mënyrën si stërvitesh</h2>
+    <p class="lead">Tre programe, një qëllim: rezultate që i mban.</p>
+    <div class="programs">
+      <article class="prog">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18v12M12 14v20M36 14v20M42 18v12M12 24h24"/></svg>
+        <h3>Forcë & muskuj</h3>
+        <p>Peshë të lira, makina dhe plan progresiv për të ndërtuar masë dhe forcë.</p>
+      </article>
+      <article class="prog">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M26 6L12 26h10l-2 16 16-22H26z"/></svg>
+        <h3>HIIT & kondicion</h3>
+        <p>Seanca 30-minutëshe me intensitet të lartë për djegie yndyre dhe qëndrueshmëri.</p>
+      </article>
+      <article class="prog">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="12" r="5"/><path d="M24 17v13M12 24l12 6 12-6M18 44l6-14 6 14"/></svg>
+        <h3>Yoga & lëvizshmëri</h3>
+        <p>Fleksibilitet, ekuilibër dhe rikuperim, për trupin dhe mendjen.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="orari" class="sched">
+  <div class="wrap">
+    <h2>Orari i klasave</h2>
+    <p class="lead">Rezervo vendin tënd. Vendet janë të kufizuara.</p>
+    <div class="tabs" role="tablist" id="tabs" aria-label="Ditët"></div>
+    <div class="classes" id="classes" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="trajneret">
+  <div class="wrap">
+    <h2>Trajnerët tanë</h2>
+    <p class="lead">Njerëz me përvojë që të ndjekin hap pas hapi.</p>
+    <div class="trainers" id="trainers"></div>
+  </div>
+</section>
+
+<section id="cmimet" style="background:var(--white)">
+  <div class="wrap">
+    <h2>Çmimet</h2>
+    <p class="lead">Pa kontratë afatgjatë. Anulo kur të duash.</p>
+    <div class="plans" id="plans"></div>
+  </div>
+</section>
+
+<section id="anetaresohu" class="join">
+  <div class="wrap join-grid">
+    <div>
+      <h2>Fillo sot</h2>
+      <p class="lead">Plotëso formularin dhe ekipi ynë të kontakton brenda 24 orësh për ditën e parë falas.</p>
+      <p class="hint"><strong>Për zhvilluesin:</strong> formulari dërgon të dhënat te <code>CONFIG.API_BASE + CONFIG.ENDPOINTS.members</code>. Shiko seksionin <code>CONFIG</code> në fund të kodit.</p>
+    </div>
+    <form class="card" id="joinForm" novalidate>
+      <label for="name">Emri dhe mbiemri</label>
+      <input id="name" name="name" required autocomplete="name">
+      <div class="row">
+        <div><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+        <div><label for="phone">Telefoni</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+      </div>
+      <label for="plan">Plani</label>
+      <select id="plan" name="plan"></select>
+      <label for="goal">Qëllimi yt</label>
+      <select id="goal" name="goal">
+        <option value="forca">Ndërtoj muskuj</option>
+        <option value="humbje">Humbas peshë</option>
+        <option value="kondicion">Përmirësoj kondicionin</option>
+        <option value="lëvizshmëri">Fleksibilitet dhe rikuperim</option>
+      </select>
+      <button class="btn btn-blue" type="submit">Dërgo kërkesën</button>
+      <div class="msg" id="joinMsg" role="status"></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> GetFIT. Të gjitha të drejtat e rezervuara.</span>
+    <span>info@getfit.example · +383 00 000 000</span>
+  </div>
+</footer>
+
+<script>
+/* =====================================================
+   CONFIG — këtu lidhe me databazën tënde
+   -----------------------------------------------------
+   1) Vendos API_BASE (p.sh. 'https://api.faqja-ime.com').
+   2) Backend-i yt (Node, PHP, Laravel, Supabase, etj.) duhet të ofrojë:
+        GET  /api/classes   -> [{id, day, time, title, trainer, spots}]
+        GET  /api/trainers  -> [{id, name, specialty}]
+        GET  /api/plans     -> [{id, name, price, features:[], featured}]
+        POST /api/members   <- {name, email, phone, plan, goal}
+   3) Nëse API_BASE është bosh, faqja përdor të dhënat shembull më poshtë.
+   ===================================================== */
+const CONFIG = {
+  API_BASE: '',
+  ENDPOINTS: { classes:'/api/classes', trainers:'/api/trainers', plans:'/api/plans', members:'/api/members' }
+};
+
+/* Të dhëna shembull (fallback) */
+const FALLBACK = {
+  classes: [
+    {id:1,day:'E hënë',time:'07:00',title:'HIIT Mëngjesi',trainer:'Arta K.',spots:8},
+    {id:2,day:'E hënë',time:'18:30',title:'Forcë për të gjithë',trainer:'Dren M.',spots:5},
+    {id:3,day:'E martë',time:'19:00',title:'Yoga Flow',trainer:'Elira S.',spots:10},
+    {id:4,day:'E mërkurë',time:'07:00',title:'Kondicion & Core',trainer:'Arta K.',spots:6},
+    {id:5,day:'E mërkurë',time:'18:30',title:'Hipertrofi',trainer:'Dren M.',spots:4},
+    {id:6,day:'E enjte',time:'19:00',title:'HIIT Mbrëmjes',trainer:'Liridon B.',spots:9},
+    {id:7,day:'E premte',time:'18:00',title:'Yoga & Rikuperim',trainer:'Elira S.',spots:12},
+    {id:8,day:'E shtunë',time:'10:00',title:'Forcë Funksionale',trainer:'Liridon B.',spots:7}
+  ],
+  trainers: [
+    {id:1,name:'Arta K.',specialty:'HIIT & kondicion'},
+    {id:2,name:'Dren M.',specialty:'Forcë & hipertrofi'},
+    {id:3,name:'Elira S.',specialty:'Yoga & lëvizshmëri'},
+    {id:4,name:'Liridon B.',specialty:'Trajnim funksional'}
+  ],
+  plans: [
+    {id:'baze',name:'Bazë',price:25,features:['Qasje në palestër','Dollapë dhe dushe','Një vlerësim fillestar'],featured:false},
+    {id:'pro',name:'Pro',price:40,features:['Gjithçka në Bazë','Klasa grupore pa limit','Plan i personalizuar'],featured:true},
+    {id:'elite',name:'Elite',price:65,features:['Gjithçka në Pro','4 seanca personale/muaj','Këshillim ushqimor'],featured:false}
+  ]
+};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function load(key){
+  if(!CONFIG.API_BASE) return FALLBACK[key];
+  try{
+    const r = await fetch(CONFIG.API_BASE + CONFIG.ENDPOINTS[key]);
+    if(!r.ok) throw new Error(r.status);
+    return await r.json();
+  }catch(e){
+    console.warn('API dështoi për', key, '— po përdoren të dhënat shembull.', e);
+    return FALLBACK[key];
+  }
+}
+
+/* Orari */
+function renderClasses(list){
+  const days = [...new Set(list.map(c => c.day))];
+  const tabs = $('#tabs'), box = $('#classes');
+  let active = days[0];
+  const draw = () => {
+    tabs.innerHTML = days.map(d => `<button class="tab" role="tab" aria-selected="${d===active}" data-d="${esc(d)}">${esc(d)}</button>`).join('');
+    const items = list.filter(c => c.day === active);
+    box.innerHTML = items.length ? items.map(c => `
+      <div class="cls">
+        <time>${esc(c.time)}</time>
+        <div><strong>${esc(c.title)}</strong><span>me ${esc(c.trainer)}</span></div>
+        <div class="spots">${esc(c.spots)} vende të lira</div>
+        <a class="btn btn-blue" href="#anetaresohu" style="padding:9px 18px">Rezervo</a>
+      </div>`).join('') : '<p class="empty">Nuk ka klasa për këtë ditë.</p>';
+  };
+  tabs.addEventListener('click', e => { const b = e.target.closest('.tab'); if(b){ active = b.dataset.d; draw(); } });
+  draw();
+}
+
+/* Trajnerët */
+function renderTrainers(list){
+  $('#trainers').innerHTML = list.map(t => `
+    <article class="tr">
+      <div class="ph" aria-hidden="true">${esc(t.name.charAt(0))}</div>
+      <h3>${esc(t.name)}</h3><span>${esc(t.specialty)}</span>
+    </article>`).join('');
+}
+
+/* Çmimet + zgjedhja në formular */
+function renderPlans(list){
+  $('#plans').innerHTML = list.map(p => `
+    <article class="plan ${p.featured?'hot':''}">
+      ${p.featured?'<span class="tag">Më i zgjedhuri</span>':''}
+      <h3>${esc(p.name)}</h3>
+      <div class="price">€${esc(p.price)}<small> / muaj</small></div>
+      <ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+      <a class="btn ${p.featured?'btn-amber':'btn-blue'}" href="#anetaresohu" data-plan="${esc(p.id)}">Zgjidh ${esc(p.name)}</a>
+    </article>`).join('');
+  $('#plan').innerHTML = list.map(p => `<option value="${esc(p.id)}">${esc(p.name)} — €${esc(p.price)}/muaj</option>`).join('');
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-plan]');
+  if(a) $('#plan').value = a.dataset.plan;
+});
+
+/* Formulari i anëtarësimit */
+$('#joinForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = $('#joinMsg'); msg.className = 'msg';
+  const data = Object.fromEntries(new FormData(e.target));
+  if(!data.name.trim() || !/^\S+@\S+\.\S+$/.test(data.email)){
+    msg.classList.add('err'); msg.textContent = 'Shkruaj emrin dhe një email të vlefshëm.'; return;
+  }
+  msg.textContent = 'Po dërgohet…';
+  try{
+    if(CONFIG.API_BASE){
+      const r = await fetch(CONFIG.API_BASE + CONFIG.ENDPOINTS.members, {
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)
+      });
+      if(!r.ok) throw new Error(r.status);
+    } else {
+      console.log('Do të dërgohej te databaza:', data); /* demo pa backend */
+    }
+    msg.classList.add('ok'); msg.textContent = 'Faleminderit! Do të të kontaktojmë brenda 24 orësh.';
+    e.target.reset();
+  }catch(err){
+    msg.classList.add('err'); msg.textContent = 'Dërgimi dështoi. Provo përsëri pas pak.';
+  }
+});
+
+/* BMI */
+$('#bmi').addEventListener('submit', e => {
+  e.preventDefault();
+  const h = parseFloat($('#h').value)/100, w = parseFloat($('#w').value), out = $('#bmiOut');
+  if(!h || !w || h < 1 || w < 30){ out.textContent = 'Shkruaj vlera të vlefshme.'; return; }
+  const b = w/(h*h);
+  const cat = b < 18.5 ? 'nën peshën normale' : b < 25 ? 'në peshë normale' : b < 30 ? 'mbi peshën normale' : 'në obezitet';
+  out.textContent = `BMI: ${b.toFixed(1)} — ${cat}. Për një plan të saktë, bisedo me trajnerin.`;
+});
+
+/* Menu mobile + vit */
+$('#burger').addEventListener('click', e => {
+  const m = $('#menu'); const o = m.classList.toggle('open');
+  e.currentTarget.setAttribute('aria-expanded', o);
+});
+$('#menu').addEventListener('click', e => { if(e.target.closest('a')) $('#menu').classList.remove('open'); });
+$('#yr').textContent = new Date().getFullYear();
+
+/* Nisja */
+(async () => {
+  const [c, t, p] = await Promise.all([load('classes'), load('trainers'), load('plans')]);
+  renderClasses(c); renderTrainers(t); renderPlans(p);
+})();
+</script>
+</body>
+</html>
